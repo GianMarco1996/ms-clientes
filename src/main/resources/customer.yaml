@@ -1,0 +1,211 @@
+openapi: 3.0.0
+info:
+  title: Customer
+  description: API para gestionar los clientes.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+paths:
+  /customer/list:
+    get:
+      summary: Devuelve los clientes del banco
+      operationId: getCustomers
+      description: Obtiene los clientes.
+      responses:
+        "200":
+          description: "Operación finalizada correctamente"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CustomerResponse"
+        "500":
+          description: "Errores técnicos"
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: "Error en el servidor."
+  /customer:
+    post:
+      summary: Registra un cliente al banco
+      operationId: registerCustomer
+      description: Crea un nuevo cliente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerRequest"
+      responses:
+        "200":
+          description: "Operación finalizada correctamente"
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: "Se registro de forma exitosa."
+        "500":
+          description: "Errores técnicos"
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: "Error en el servidor."
+  /customer/{id}:
+    get:
+      summary: Obtiene un cliente del banco
+      operationId: getCustomer
+      description: Obtiene un cliente por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del cliente
+          schema:
+            type: string
+            example: "6764c17cb1fa3cd77d0644d8"
+      responses:
+        "200":
+          description: "Operación finalizada correctamente"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerResponse"
+        "404":
+          description: "No se encontró el cliente"
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: "Cliente no encontrado."
+        "500":
+          description: "Errores técnicos"
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: "Error en el servidor."
+    put:
+      summary: Actualiza un cliente del banco
+      operationId: updateCustomer
+      description: Actualiza un cliente por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del cliente
+          schema:
+            type: string
+            example: "6764c17cb1fa3cd77d0644d8"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerRequest"
+      responses:
+        "200":
+          description: "Operación finalizada correctamente"
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: "Se actualizo de forma exitosa."
+        "500":
+          description: "Errores técnicos"
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: "Error en el servidor."
+    delete:
+      summary: Elimina un cliente del banco
+      operationId: removeCustomer
+      description: Elimina un cliente por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del cliente
+          schema:
+            type: string
+            example: "6764c17cb1fa3cd77d0644d8"
+      responses:
+        "500":
+          description: "Errores técnicos"
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: "Error en el servidor."
+components:
+  schemas:
+    CustomerResponse:
+      type: object
+      properties:
+        id:
+          description: "Id del cliente"
+          type: string
+          example: "6764c17cb1fa3cd77d0644d8"
+        type:
+          description: "tipo de cliente"
+          type: string
+          example: "Empresarial"
+        companyName:
+          description: "Nombre de la empresa"
+          type: string
+          example: "NTT DATA"
+        ruc:
+          description: "Ruc de la empresa"
+          type: string
+          example: "98765432178"
+        phone:
+          description: "Telefono de la empresa"
+          type: string
+          example: "5112038226"
+        address:
+          description: "Dirección de la empresa"
+          type: string
+          example: "San Isidro"
+    CustomerRequest:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          description: "tipo de cliente"
+          type: string
+          example: "Empresarial"
+        companyName:
+          description: "Nombre de la empresa"
+          type: string
+          example: "NTT DATA"
+        ruc:
+          description: "Ruc de la empresa"
+          type: string
+          example: "98765432178"
+        phone:
+          description: "Telefono de la empresa"
+          type: string
+          example: "5112038226"
+        address:
+          description: "Dirección de la empresa"
+          type: string
+          example: "San Isidro"
