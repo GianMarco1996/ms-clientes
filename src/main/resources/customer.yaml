@@ -184,6 +184,11 @@ components:
           description: "Dirección de la empresa"
           type: string
           example: "San Isidro"
+        persons:
+          description: "Personas asociadas a este cliente"
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerPersonResponse'
     CustomerRequest:
       type: object
       required:
@@ -209,3 +214,50 @@ components:
           description: "Dirección de la empresa"
           type: string
           example: "San Isidro"
+    CustomerPersonResponse:
+      type: object
+      properties:
+        id:
+          description: "Id de la persona"
+          type: string
+          example: "6764c17cb1fa3cd77d0644d8"
+        name:
+          description: "Nombre de la persona"
+          type: string
+          example: "Pepe"
+        lastName:
+          description: "Apellidos de la persona"
+          type: string
+          example: "Jimenez Perez"
+        typePerson:
+          description: "Tipo de persona"
+          type: string
+          example: "Titular"
+        mobile:
+          description: "Celular de la persona"
+          type: string
+          example: "987654321"
+        email:
+          description: "Correo de la persona"
+          type: string
+          example: "pepe@correo.com"
+        documentNumber:
+          description: "Numero de documento de la persona"
+          type: string
+          example: "5112038226"
+        documentType:
+          description: "Tipo de documento de la persona"
+          type: string
+          example: "San Isidro"
+        address:
+          description: "Dirección de la persona"
+          type: string
+          example: "San Isidro"
+        birthdate:
+          description: "Fecha de nacimiento de la persona"
+          type: string
+          example: "05/05/2005"
+        customerId:
+          description: "Id del cliente"
+          type: string
+          example: "6764c17cb1fa3cd77d0644d8"

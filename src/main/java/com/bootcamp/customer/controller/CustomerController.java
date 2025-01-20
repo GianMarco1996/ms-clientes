@@ -25,20 +25,20 @@ public class CustomerController implements CustomerApi {
     @Override
     public Mono<ResponseEntity<CustomerResponse>> getCustomer(String id, ServerWebExchange exchange) {
         return customerService.getCustomer(id)
-                .map(customer -> customerMapper.toModel(customer))
+                .map(customer -> customerMapper.dtoToModel(customer))
                 .map(ResponseEntity::ok);
     }
 
     @Override
     public Mono<ResponseEntity<Flux<CustomerResponse>>> getCustomers(ServerWebExchange exchange) {
         return Mono.just(ResponseEntity.ok().body(customerService.getCustomers()
-                .map(customer -> customerMapper.toModel(customer))));
+                .map(customer -> customerMapper.dtoToModel(customer))));
     }
 
     @Override
     public Mono<ResponseEntity<Object>> registerCustomer(Mono<CustomerRequest> customerRequest, ServerWebExchange exchange) {
         return customerService.registerCustomer(
-                        customerRequest.map(customer -> customerMapper.toDocument(customer)))
+                        customerRequest.map(customer -> customerMapper.modelToDocument(customer)))
                 .map(ResponseEntity::ok);
     }
 
@@ -52,7 +52,7 @@ public class CustomerController implements CustomerApi {
     @Override
     public Mono<ResponseEntity<Object>> updateCustomer(String id, Mono<CustomerRequest> customerRequest, ServerWebExchange exchange) {
         return customerService.updateCustomer(id,
-                        customerRequest.map(customer -> customerMapper.toDocument(customer)))
+                        customerRequest.map(customer -> customerMapper.modelToDocument(customer)))
                 .map(ResponseEntity::ok);
     }
 
